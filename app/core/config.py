@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel, PostgresDsn, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 LOG_DEFAULT_FORMAT = (
@@ -22,9 +22,16 @@ class LoggingConfig(BaseModel):
     @property
     def log_level_value(self) -> int:
         return logging.getLevelNamesMapping()[self.log_level.upper()]
+
+
+class RedisConfig(BaseModel):
+    url: RedisDsn
+
+
 class CookieConfig(BaseModel):
     name: str
     age: int
+
 
 class DatabaseConfig(BaseModel):
     url: PostgresDsn  # парсит url базы данных
@@ -44,6 +51,7 @@ class Settings(BaseSettings):
         env_prefix="APP_CONFIG__",
     )
     logging: LoggingConfig = LoggingConfig()
+    redis: RedisConfig
     cookie: CookieConfig
     db: DatabaseConfig
 
