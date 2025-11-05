@@ -1,6 +1,13 @@
+import logging
 import uvicorn
 
 from fastapi import FastAPI
+from app.core import settings
+logging.basicConfig(
+    level=settings.logging.log_level_value,
+    format=settings.logging.log_format,
+    datefmt=settings.logging.date_format,
+)
 
 
 app = FastAPI(
