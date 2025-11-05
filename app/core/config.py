@@ -47,6 +47,12 @@ class DatabaseConfig(BaseModel):
     )
 
 
+class SMTPConfig(BaseModel):
+    host: str
+    port: int
+    from_email: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=Path(__file__).parent.parent / ".env",
@@ -55,6 +61,7 @@ class Settings(BaseSettings):
         env_prefix="APP_CONFIG__",
     )
     logging: LoggingConfig = LoggingConfig()
+    smtp: SMTPConfig
     redis: RedisConfig
     broker: BrokerConfig
     cookie: CookieConfig
