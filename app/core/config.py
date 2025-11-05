@@ -3,6 +3,9 @@ from pathlib import Path
 from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+class CookieConfig(BaseModel):
+    name: str
+    age: int
 
 class DatabaseConfig(BaseModel):
     url: PostgresDsn  # парсит url базы данных
@@ -21,6 +24,7 @@ class Settings(BaseSettings):
         env_nested_delimiter="__",
         env_prefix="APP_CONFIG__",
     )
+    cookie: CookieConfig
     db: DatabaseConfig
 
 
