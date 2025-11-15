@@ -1,0 +1,89 @@
+.recover-back-btn {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    z-index: 99;
+}
+
+.recover-back-btn-icon {
+    width: 20px;
+    height: auto;
+    fill: var(--text-color);
+    rotate: 180deg;
+}
+.recover-back-btn-text {
+    padding-left: 10px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.recover-card {
+    position: absolute;
+    align-self: center;
+    height: 100%;
+    width: 40%;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-radius: 0;
+}
+.recover-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+}
+.recover-form-buttons {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+}
+
+.recover-form-buttons Button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    border-radius: 0;
+    transition: none;
+}
+
+.recover-form-buttons .active {
+    border-bottom: #646cff solid 1px;
+}
+
+.recover-form-buttons Button:hover {
+    background-color: var(--btn-bg-color);
+    transform: scale(1);
+}
+
+.recover-card-footer {
+    position: absolute;
+    width: 40%;
+    right: 0;
+}
+.recover-form-send-btn {
+    align-self: flex-start;
+}
+
+.recover-form-register {
+    align-self: flex-start;
+}
+
+.recover-form-forgot-password {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+@media (max-width: 800px)  {
+    .recover-card {
+        width: 100%;
+    }
+    .recover-card-footer {
+        right: auto;
+    }
+}

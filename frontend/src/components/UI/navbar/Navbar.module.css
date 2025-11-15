@@ -1,0 +1,30 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    gap: 10px;
+}
+
+.account__icon {
+    width: 20px;
+    height: auto;
+    fill: var(--text-color);
+}
+
+.account__label  {
+    padding-left: 10px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.theme__icon {
+    width: 20px;
+    height: auto;
+    fill: var(--text-color);
+}
+
+@media (max-width: 600px) {
+    .account__label  {
+        display: none;
+    }
+}
