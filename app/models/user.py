@@ -1,11 +1,15 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Boolean, DateTime, Integer
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.security import generate_uuid
 from app.models.base import Base
 
+if TYPE_CHECKING:
+    from .post import Post
+    from .comment import Comment
 
 DEFAULT_AVATAR_KEY = "default.webp"
 
@@ -35,4 +39,16 @@ class User(Base):
         DateTime(timezone=True),
         nullable=False,
         default=datetime.now,
+    )
+
+    # Relationships
+    posts: Mapped[list["Post"]] = relationship(
+        "Post",
+        back_populates="author",
+        cascade="all, delete-orphan",
+    )
+    comments: Mapped[list["Comment"]] = relationship(
+        "Comment",
+        back_populates="author",
+        cascade="all, delete-orphan",
     )

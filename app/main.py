@@ -1,8 +1,15 @@
 import logging
 import uvicorn
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-from app.core import settings
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.api import api_router
+from app.core import settings, broker
+from app.core.db_manager import db_manager
+
+
 logging.basicConfig(
     level=settings.logging.log_level_value,
     format=settings.logging.log_format,
@@ -10,9 +17,32 @@ logging.basicConfig(
 )
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+
+    await db_manager.init_database()  # Создание таблиц в бд
+    await broker.start()  # Запуск брокера
+
+    yield
+
+    await broker.stop()  # Остановка брокера
+    await db_manager.dispose()  # Остановка бд
+
+
 app = FastAPI(
     title="Cowork: space for students",
+    lifespan=lifespan,
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(api_router)
 
 if __name__ == "__main__":
     uvicorn.run(
